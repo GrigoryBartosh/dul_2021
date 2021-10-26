@@ -16,6 +16,19 @@ def q1_a_sample_data(image_file, n, d):
     return dist, np.array(samples)
 
 
+def get_data_q1_a(dset_type):
+    data_dir = get_data_dir(1)
+    if dset_type == 1:
+        n, d = 10000, 25
+        true_dist, data = q1_a_sample_data(join(data_dir, 'smiley.jpg'), n, d)
+    elif dset_type == 2:
+        n, d = 100000, 200
+        true_dist, data = q1_a_sample_data(join(data_dir, 'geoffrey-hinton.jpg'), n, d)
+    else:
+        raise Exception('Invalid dset_type:', dset_type)
+    return data
+
+
 def visualize_q1a_data(dset_type):
     data_dir = get_data_dir(1)
     if dset_type == 1:
@@ -53,6 +66,19 @@ def visualize_q1a_data(dset_type):
     ax2.set_ylabel('x0')
 
     plt.show()
+
+
+def get_data_q1_b(dset_type):
+    data_dir = get_data_dir(1)
+    if dset_type == 1:
+        train_data, test_data = load_pickled_data(join(data_dir, 'shapes.pkl'))
+        name = 'Shape'
+    elif dset_type == 2:
+        train_data, test_data = load_pickled_data(join(data_dir, 'mnist.pkl'))
+        name = 'MNIST'
+    else:
+        raise Exception('Invalid dset type:', dset_type)
+    return train_data
 
 
 def visualize_q1b_data(dset_type):
