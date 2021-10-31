@@ -20,3 +20,15 @@ def pr1_save_results(dset_type, pr1):
     save_training_plot(train_losses, test_losses, f'PR1 Dataset {dset_type} Train Plot',
                        f'results/pr1_dset{dset_type}_train_plot.png')
     show_samples(samples, f'results/pr1_dset{dset_type}_samples.png')
+
+
+def pr1_get_data(dset_type):
+    data_dir = get_data_dir(1)
+    if dset_type == 1:
+        train_data, test_data = load_pickled_data(join(data_dir, 'shapes.pkl'))
+    elif dset_type == 2:
+        train_data, test_data = load_pickled_data(join(data_dir, 'mnist.pkl'))
+    else:
+        raise Exception()
+
+    return train_data

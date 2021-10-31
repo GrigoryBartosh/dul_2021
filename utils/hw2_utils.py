@@ -37,6 +37,18 @@ def visualize_q1a_data(dset_type):
     show_samples(images, title=f'{name} Samples')
 
 
+def q1ab_get_data(dset_type):
+    data_dir = get_data_dir(1)
+    if dset_type == 1:
+        train_data, _ = load_pickled_data(join(data_dir, 'shapes_colored.pkl'))
+    elif dset_type == 2:
+        train_data, _ = load_pickled_data(join(data_dir, 'mnist_colored.pkl'))
+    else:
+        raise Exception('Invalid dset type:', dset_type)
+
+    return train_data
+
+
 def q1c_save_results(dset_type, q1_c):
     data_dir = get_data_dir(1)
     if dset_type == 1:
@@ -58,6 +70,22 @@ def q1c_save_results(dset_type, q1_c):
     save_training_plot(train_losses, test_losses, f'Q1(c) Dataset {dset_type} Train Plot',
                        f'results/q1_c_dset{dset_type}_train_plot.png')
     show_samples(samples, f'results/q1_c_dset{dset_type}_samples.png')
+
+
+def q1c_get_data(dset_type):
+    data_dir = get_data_dir(1)
+    if dset_type == 1:
+        train_data, test_data, train_labels, test_labels = load_pickled_data(join(data_dir, 'shapes.pkl'),
+                                                                             include_labels=True)
+        img_shape, n_classes = (20, 20), 4
+    elif dset_type == 2:
+        train_data, test_data, train_labels, test_labels = load_pickled_data(join(data_dir, 'mnist.pkl'),
+                                                                             include_labels=True)
+        img_shape, n_classes = (28, 28), 10
+    else:
+        raise Exception('Invalid dset type:', dset_type)
+
+    return train_data, train_labels, img_shape, n_classes
 
 
 # Bonuses
@@ -90,6 +118,13 @@ def b1b_save_results(b1_b):
     show_samples(samples, f'results/b1_b_samples.png')
 
 
+def b1ab_get_data():
+    data_dir = get_data_dir(1)
+    train_data, test_data = load_pickled_data(join(data_dir, 'mnist_colored.pkl'))
+    img_shape = (28, 28, 3)
+    return train_data, img_shape
+
+
 def b1c_save_results(b1_c):
     data_dir = get_data_dir(1)
     train_data, test_data = load_pickled_data(join(data_dir, 'mnist.pkl'))
@@ -108,3 +143,15 @@ def b1c_save_results(b1_c):
     save_training_plot(train_losses, test_losses, f'B1(c) Train Plot',
                        f'results/b1_c_train_plot.png')
     show_samples(samples, f'results/b1_c_samples.png')
+
+
+def b1c_get_data():
+    data_dir = get_data_dir(1)
+    train_data, _ = load_pickled_data(join(data_dir, 'mnist.pkl'))
+    train_data = torch.FloatTensor(train_data).permute(0, 3, 1, 2)
+
+    train_data = F.interpolate(train_data, scale_factor=2, mode='bilinear')
+    train_data = train_data.permute(0, 2, 3, 1).numpy()
+    train_data = (train_data > 0.5).astype('uint8')
+
+    return train_data
