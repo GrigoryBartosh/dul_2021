@@ -3,9 +3,8 @@ from scipy.stats import norm
 from sklearn.datasets import make_moons
 from torchvision.utils import make_grid
 
-import pytorch_utils as ptu
+import utils.pytorch_utils as ptu
 from .utils import *
-from .utils import save_training_plot
 
 
 def make_scatterplot(points, title=None, filename=None):
@@ -166,7 +165,7 @@ def generate_1d_flow_data(n):
     return np.concatenate([gaussian1, gaussian2])
 
 
-def load_flow_demo_1(n_train, n_test, loader_args, visualize=True, train_only=False):
+def load_flow_demo_1(n_train, n_test, visualize=True, train_only=False):
     # 1d distribution, mixture of two gaussians
     train_data, test_data = generate_1d_flow_data(n_train), generate_1d_flow_data(n_test)
 
@@ -183,11 +182,10 @@ def load_flow_demo_1(n_train, n_test, loader_args, visualize=True, train_only=Fa
         plt.show()
 
     train_dset, test_dset = NumpyDataset(train_data), NumpyDataset(test_data)
-    train_loader, test_loader = data.DataLoader(train_dset, **loader_args), data.DataLoader(test_dset, **loader_args)
 
     if train_only:
-        return train_loader
-    return train_loader, test_loader
+        return train_dset
+    return train_dset, test_dset
 
 
 def load_flow_demo_2(n_train, n_test, loader_args, visualize=True, train_only=False, distribution='uniform'):
