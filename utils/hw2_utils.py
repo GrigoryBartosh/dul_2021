@@ -1,8 +1,8 @@
 from .utils import *
 
 
-def q1ab_save_results(dset_type, part, fn):
-    data_dir = get_data_dir(1)
+def q1ab_save_results(dset_type, part, fn, data_dir: str):
+    data_dir = data_dir #get_data_dir(1)
     if dset_type == 1:
         train_data, test_data = load_pickled_data(join(data_dir, 'shapes_colored.pkl'))
         img_shape = (20, 20, 3)
@@ -21,8 +21,8 @@ def q1ab_save_results(dset_type, part, fn):
     show_samples(samples, f'results/q1_{part}_dset{dset_type}_samples.png')
 
 
-def visualize_q1a_data(dset_type):
-    data_dir = get_data_dir(1)
+def visualize_q1a_data(dset_type, data_dir: str):
+    data_dir = data_dir #get_data_dir(1)
     if dset_type == 1:
         train_data, test_data = load_pickled_data(join(data_dir, 'shapes_colored.pkl'))
         name = 'Colored Shape'
@@ -37,8 +37,8 @@ def visualize_q1a_data(dset_type):
     show_samples(images, title=f'{name} Samples')
 
 
-def q1ab_get_data(dset_type):
-    data_dir = get_data_dir(1)
+def q1ab_get_data(dset_type, data_dir: str):
+    data_dir = data_dir #get_data_dir(1)
     if dset_type == 1:
         train_data, _ = load_pickled_data(join(data_dir, 'shapes_colored.pkl'))
     elif dset_type == 2:
@@ -49,8 +49,8 @@ def q1ab_get_data(dset_type):
     return train_data
 
 
-def q1c_save_results(dset_type, q1_c):
-    data_dir = get_data_dir(1)
+def q1c_save_results(dset_type, q1_c, data_dir: str):
+    data_dir = data_dir #get_data_dir(1)
     if dset_type == 1:
         train_data, test_data, train_labels, test_labels = load_pickled_data(join(data_dir, 'shapes.pkl'),
                                                                              include_labels=True)
@@ -72,8 +72,8 @@ def q1c_save_results(dset_type, q1_c):
     show_samples(samples, f'results/q1_c_dset{dset_type}_samples.png')
 
 
-def q1c_get_data(dset_type):
-    data_dir = get_data_dir(1)
+def q1c_get_data(dset_type, data_dir: str):
+    data_dir = data_dir #get_data_dir(1)
     if dset_type == 1:
         train_data, test_data, train_labels, test_labels = load_pickled_data(join(data_dir, 'shapes.pkl'),
                                                                              include_labels=True)
@@ -89,8 +89,8 @@ def q1c_get_data(dset_type):
 
 
 # Bonuses
-def b1a_save_results(b1_a):
-    data_dir = get_data_dir(1)
+def b1a_save_results(b1_a, data_dir: str):
+    data_dir = data_dir #get_data_dir(1)
     train_data, test_data = load_pickled_data(join(data_dir, 'mnist_colored.pkl'))
     img_shape = (28, 28, 3)
     train_losses, test_losses, samples = b1_a(train_data, test_data, img_shape)
@@ -101,8 +101,8 @@ def b1a_save_results(b1_a):
     show_samples(samples, f'results/b1_a_samples.png')
 
 
-def b1b_save_results(b1_b):
-    data_dir = get_data_dir(1)
+def b1b_save_results(b1_b, data_dir: str):
+    data_dir = data_dir #get_data_dir(1)
     train_data, test_data = load_pickled_data(join(data_dir, 'mnist_colored.pkl'))
     img_shape = (28, 28, 3)
     train_losses, test_losses, gray_samples, color_samples = b1_b(train_data, test_data, img_shape)
@@ -118,15 +118,15 @@ def b1b_save_results(b1_b):
     show_samples(samples, f'results/b1_b_samples.png')
 
 
-def b1ab_get_data():
-    data_dir = get_data_dir(1)
+def b1ab_get_data(data_dir: str):
+    data_dir = data_dir #get_data_dir(1)
     train_data, test_data = load_pickled_data(join(data_dir, 'mnist_colored.pkl'))
     img_shape = (28, 28, 3)
     return train_data, img_shape
 
 
-def b1c_save_results(b1_c):
-    data_dir = get_data_dir(1)
+def b1c_save_results(b1_c, data_dir: str):
+    data_dir = data_dir #get_data_dir(1)
     train_data, test_data = load_pickled_data(join(data_dir, 'mnist.pkl'))
     train_data, test_data = torch.FloatTensor(train_data).permute(0, 3, 1, 2), torch.FloatTensor(test_data).permute(0,
                                                                                                                     3,
@@ -145,8 +145,8 @@ def b1c_save_results(b1_c):
     show_samples(samples, f'results/b1_c_samples.png')
 
 
-def b1c_get_data():
-    data_dir = get_data_dir(1)
+def b1c_get_data(data_dir: str):
+    data_dir = data_dir #get_data_dir(1)
     train_data, _ = load_pickled_data(join(data_dir, 'mnist.pkl'))
     train_data = torch.FloatTensor(train_data).permute(0, 3, 1, 2)
 
