@@ -305,9 +305,9 @@ def plot_1d_continuous_dist(density, xlabel='x', ylabel="Density", title=''):
     plt.show()
 
 
-def visualize_demo1_flow(train_loader, initial_flow, final_flow):
+def visualize_demo1_flow(train_data, initial_flow, final_flow):
     plt.figure(figsize=(10, 5))
-    train_data = ptu.FloatTensor(train_loader.dataset.array)
+    train_data = ptu.FloatTensor(train_data.array)
 
     # before:
     plt.subplot(231)
