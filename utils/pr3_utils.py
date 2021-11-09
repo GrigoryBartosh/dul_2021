@@ -274,15 +274,16 @@ def plot_2d_dist(dist, title='Learned Distribution'):
 
 
 def plot_train_curves(epochs, train_losses, test_losses, title=''):
-    x = np.linspace(0, epochs, len(train_losses))
-    plt.figure()
-    plt.plot(x, train_losses, label='train_loss')
-    if test_losses:
-        plt.plot(x, test_losses, label='test_loss')
-    plt.xlabel('Epoch')
-    plt.ylabel('Loss')
-    plt.title(title)
+    n_epochs = len(test_losses) - 1
+    x_train = np.linspace(0, n_epochs, len(train_losses))
+    x_test = np.arange(n_epochs + 1)
+
+    plt.plot(x_train, train_losses, label='train loss')
+    plt.plot(x_test, test_losses, label='test loss')
     plt.legend()
+    plt.title(title)
+    plt.xlabel('Epoch')
+    plt.ylabel('NLL')
     plt.show()
 
 
