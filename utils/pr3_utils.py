@@ -3,7 +3,7 @@ from scipy.stats import norm
 from sklearn.datasets import make_moons
 from torchvision.utils import make_grid
 
-import torch_utils as ptu
+import pytorch_utils as ptu
 from .utils import *
 from .utils import save_training_plot
 
