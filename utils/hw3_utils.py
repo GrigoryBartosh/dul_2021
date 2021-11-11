@@ -23,7 +23,7 @@ def get_q1_data():
     show_samples(images, title=f'{name} Samples')
 
 
-def q2_save_results(fn):
+def q1_save_results(fn):
     data_dir = get_data_dir(3)
     train_data, test_data = load_pickled_data(join(data_dir, 'shapes.pkl'))
 
