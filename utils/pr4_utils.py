@@ -1,3 +1,5 @@
+import torch.utils.data as data
+from scipy.stats import norm
 from sklearn.datasets import make_moons
 
 from .utils import *
@@ -35,10 +37,11 @@ def q1_sample_data_2():
 
 def get_data(dset_id=1):
     if dset_id == 1:
-        train_data, train_labels, test_data, test_labels  = q1_sample_data_1()
+        train_data, train_labels, test_data, test_labels = q1_sample_data_1()
     else:
         train_data, train_labels, test_data, test_labels = q1_sample_data_2()
     return Dataset(train_data, train_labels), Dataset(test_data, test_labels)
+
 
 def visualize_q1_data(dset_type):
     if dset_type == 1:
@@ -60,6 +63,36 @@ def visualize_q1_data(dset_type):
     plt.show()
 
 
+def generate_1d_flow_data(n):
+    assert n % 2 == 0
+    gaussian1 = np.random.normal(loc=-1, scale=0.25, size=(n // 2,))
+    gaussian2 = np.random.normal(loc=0.5, scale=0.5, size=(n // 2,))
+    return np.concatenate([gaussian1, gaussian2])
+
+
+def load_flow_demo_1(n_train, n_test, visualize=True, train_only=False):
+    # 1d distribution, mixture of two gaussians
+    train_data, test_data = generate_1d_flow_data(n_train), generate_1d_flow_data(n_test)
+
+    if visualize:
+        plt.figure()
+        x = np.linspace(-3, 3, num=100)
+        densities = 0.5 * norm.pdf(x, loc=-1, scale=0.25) + 0.5 * norm.pdf(x, loc=0.5, scale=0.5)
+        plt.figure()
+        plt.plot(x, densities)
+        plt.show()
+        plt.figure()
+        plt.hist(train_data, bins=50)
+        # plot_hist(train_data, bins=50, title='Train Set')
+        plt.show()
+
+    train_dset, test_dset = NumpyDataset(train_data), NumpyDataset(test_data)
+
+    if train_only:
+        return train_dset
+    return train_dset, test_dset
+
+
 class Dataset:
     def __init__(self, data, target):
         self.x = data
@@ -70,6 +103,23 @@ class Dataset:
 
     def __getitem__(self, i):
         return self.x[i], self.y[i]
+
+
+class NumpyDataset(data.Dataset):
+
+    def __init__(self, array, transform=None):
+        super().__init__()
+        self.array = array
+        self.transform = transform
+
+    def __len__(self):
+        return len(self.array)
+
+    def __getitem__(self, index):
+        x = self.array[index]
+        if self.transform:
+            x = self.transform(x)
+        return x
 
 
 def plot_train_curves(epochs, train_losses, test_losses, title='', y_label='NLL'):
