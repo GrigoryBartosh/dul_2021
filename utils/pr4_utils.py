@@ -71,9 +71,10 @@ def generate_1d_data(n):
     return np.concatenate([gaussian1, gaussian2]), np.array(labels)
 
 
-def load_flow_demo_1(n_train, visualize=True, train_only=False):
+def load_demo_1(n_train, n_test, visualize=True, train_only=False):
     # 1d distribution, mixture of two gaussians
     train_data, train_labels = generate_1d_data(n_train)
+    test_data, test_labels = generate_1d_data(n_test)
 
     if visualize:
         plt.figure()
@@ -88,8 +89,8 @@ def load_flow_demo_1(n_train, visualize=True, train_only=False):
         plt.show()
 
     train_dset = Dataset(train_data, train_labels)
-
-    return train_dset
+    test_dset = Dataset(test_data, test_labels)
+    return train_dset, test_dset
 
 
 class Dataset:
@@ -121,7 +122,7 @@ class NumpyDataset(data.Dataset):
         return x
 
 
-def plot_train_curves(epochs, train_losses, test_losses, title='', y_label='NLL'):
+def plot_train_curves(epochs, train_losses, test_losses, title='', y_label='CE'):
     n_epochs = len(test_losses) - 1
     x_train = np.linspace(0, n_epochs, len(train_losses))
     x_test = np.arange(n_epochs + 1)
