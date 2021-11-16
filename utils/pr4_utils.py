@@ -1,4 +1,3 @@
-import torch.utils.data as data
 from scipy.stats import norm
 from sklearn.datasets import make_moons
 
@@ -103,23 +102,6 @@ class Dataset:
 
     def __getitem__(self, i):
         return self.x[i], self.y[i]
-
-
-class NumpyDataset(data.Dataset):
-
-    def __init__(self, array, transform=None):
-        super().__init__()
-        self.array = array
-        self.transform = transform
-
-    def __len__(self):
-        return len(self.array)
-
-    def __getitem__(self, index):
-        x = self.array[index]
-        if self.transform:
-            x = self.transform(x)
-        return x
 
 
 def plot_train_curves(epochs, train_losses, test_losses, title='', y_label='CE'):
