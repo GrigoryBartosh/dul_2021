@@ -63,16 +63,17 @@ def visualize_q1_data(dset_type):
     plt.show()
 
 
-def generate_1d_flow_data(n):
+def generate_1d_data(n):
     assert n % 2 == 0
     gaussian1 = np.random.normal(loc=-1, scale=0.25, size=(n // 2,))
     gaussian2 = np.random.normal(loc=0.5, scale=0.5, size=(n // 2,))
-    return np.concatenate([gaussian1, gaussian2])
+    labels = [1] * len(gaussian1) + [0] * len(gaussian1)
+    return np.concatenate([gaussian1, gaussian2]), np.array(labels)
 
 
-def load_flow_demo_1(n_train, n_test, visualize=True, train_only=False):
+def load_flow_demo_1(n_train, visualize=True, train_only=False):
     # 1d distribution, mixture of two gaussians
-    train_data, test_data = generate_1d_flow_data(n_train), generate_1d_flow_data(n_test)
+    train_data, train_labels = generate_1d_data(n_train)
 
     if visualize:
         plt.figure()
@@ -86,11 +87,9 @@ def load_flow_demo_1(n_train, n_test, visualize=True, train_only=False):
         # plot_hist(train_data, bins=50, title='Train Set')
         plt.show()
 
-    train_dset, test_dset = NumpyDataset(train_data), NumpyDataset(test_data)
+    train_dset = Dataset(train_data, train_labels)
 
-    if train_only:
-        return train_dset
-    return train_dset, test_dset
+    return train_dset
 
 
 class Dataset:
