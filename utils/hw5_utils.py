@@ -24,7 +24,7 @@ def plot_vae_training_plot(train_losses, test_losses, title, fname):
 
 
 def visualize_colored_shapes():
-    data_dir = get_data_dir(3)
+    data_dir = get_data_dir(5)
     train_data, test_data = load_pickled_data(join(data_dir, 'shapes_colored.pkl'))
     idxs = np.random.choice(len(train_data), replace=False, size=(100,))
     images = train_data[idxs]
@@ -32,7 +32,7 @@ def visualize_colored_shapes():
 
 
 def visualize_svhn():
-    data_dir = get_data_dir(3)
+    data_dir = get_data_dir(5)
     train_data, test_data = load_pickled_data(join(data_dir, 'svhn.pkl'))
     idxs = np.random.choice(len(train_data), replace=False, size=(100,))
     images = train_data[idxs]
@@ -40,7 +40,7 @@ def visualize_svhn():
 
 
 def visualize_cifar10():
-    data_dir = get_data_dir(3)
+    data_dir = get_data_dir(5)
     train_data, test_data = load_pickled_data(join(data_dir, 'cifar10.pkl'))
     idxs = np.random.choice(len(train_data), replace=False, size=(100,))
     images = train_data[idxs]
@@ -49,7 +49,7 @@ def visualize_cifar10():
 
 def q1_save_results(part, dset_id, fn):
     assert part in ['a', 'b'] and dset_id in [1, 2]
-    data_dir = get_data_dir(3)
+    data_dir = get_data_dir(5)
     if dset_id == 1:
         train_data, test_data = load_pickled_data(join(data_dir, 'svhn.pkl'))
     else:
