@@ -61,7 +61,7 @@ def calculate_is(samples):
         for i in range(n_batches):
             sys.stdout.write(".")
             sys.stdout.flush()
-            inp = FloatTensor(samples[(i * bs):min((i + 1) * bs, len(samples))])
+            inp = FloatTensor(samples[(i * bs):min((i + 1) * bs, len(samples))]).to(device)
             pred = get_numpy(softmax(inp))
             preds.append(pred)
     preds = np.concatenate(preds, 0)
