@@ -6,7 +6,7 @@ import torchvision
 from PIL import Image as PILImage
 from torchvision import transforms as transforms
 
-from .hw4_utils.hw4_models import GoogLeNet
+from .hw7_is.hw7_models import GoogLeNet
 from .pytorch_utils import *
 from .utils import *
 
