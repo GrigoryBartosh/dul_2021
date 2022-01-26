@@ -50,7 +50,7 @@ def plot_q1_training_plot(train_con, train_reg, title='Losses'):
 
     plt.legend()
     plt.title(title)
-    plt.xlabel('Epoch')
+    plt.xlabel('Iteration')
     plt.ylabel('Loss')
     plt.show()
 
@@ -97,7 +97,7 @@ def plot_q2_training_plot(losses, title='Losses'):
 
     plt.legend()
     plt.title(title)
-    plt.xlabel('Epoch')
+    plt.xlabel('Iteration')
     plt.ylabel('Loss')
     plt.show()
 
@@ -122,7 +122,7 @@ def plot_b_training_plot(losses_clf, losses_ebm, title='Losses'):
 
     plt.legend()
     plt.title(title)
-    plt.xlabel('Epoch')
+    plt.xlabel('Iteration')
     plt.ylabel('Loss')
     plt.show()
 
