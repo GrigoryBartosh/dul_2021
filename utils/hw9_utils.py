@@ -28,10 +28,7 @@ def get_mnist():
     return train_set, test_set
 
 
-def plot_samples(model):
-    samples = model.sampler.sample_new_exmps(60, 10)
-    samples = samples[:100].cpu().detach()
-
+def show_samples(samples):
     img = torch.Tensor(samples)
     img = img.view(-1, 1, 28, 28)
     img = make_grid(img, nrow=10)
