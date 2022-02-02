@@ -1,3 +1,4 @@
+import torch
 from torchvision import transforms
 from torchvision.datasets import MNIST
 from torchvision.utils import make_grid
@@ -35,6 +36,7 @@ def tensor_to_image(x):
 
 
 def show_samples(img):
+    img = torch.Tensor(img)
     img = make_grid(img, nrow=10)
     img = tensor_to_image(img)
     img = img.clip(0, 1)
@@ -60,8 +62,8 @@ def plot_ce_training(train_ae, train_clf, title='Losses'):
 
 
 def q1_results(q1):
-    train_data, _ = get_mnist()
-    aeloss, clfloss, samples = q1(train_data)
+    train_data, test_data = get_mnist()
+    aeloss, clfloss, samples = q1(train_data, test_data)
 
     plot_ce_training(aeloss, clfloss)
     show_samples(samples)
