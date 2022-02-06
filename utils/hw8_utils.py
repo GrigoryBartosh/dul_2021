@@ -59,12 +59,16 @@ def q1_results(q):
     plt.show()
 
 
-def plot_avb_training_plot(train_elbo, train_clf, title='Losses'):
+def plot_avb_training_plot(train_elbo, train_clf, test_elbo, test_clf, title='Losses'):
     plt.figure()
-    x = np.arange(len(train_elbo))
+    n_epochs = len(test_elbo) - 1
+    x_train = np.linspace(0, n_epochs, len(train_elbo))
+    x_test = np.arange(n_epochs + 1)
 
-    plt.plot(x, train_elbo, label='-elbo_train')
-    plt.plot(x, train_clf, label='classif. loss train')
+    plt.plot(x_train, train_elbo, label='-elbo_train')
+    plt.plot(x_train, train_clf, label='classif. loss train')
+    plt.plot(x_test, test_elbo, label='-elbo_test')
+    plt.plot(x_test, test_clf, label='classif. loss test')
 
     plt.legend()
     plt.title(title)
@@ -82,9 +86,9 @@ def q2_results(q):
     data_dir = get_data_dir(1)
     train_data, test_data = load_pickled_data(join(data_dir, 'mnist.pkl'))
 
-    train_elbo, train_clf, samples = q(train_data)
+    train_elbo, train_clf, test_elbo, test_clf, samples = q(train_data, test_data)
 
-    plot_avb_training_plot(train_elbo, train_clf, 'Training Loss')
+    plot_avb_training_plot(train_elbo, train_clf, test_elbo, test_clf, 'Training Loss')
 
     img = torch.Tensor(samples)
     img = img.view(-1, 1, 28, 28)
