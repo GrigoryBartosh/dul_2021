@@ -134,12 +134,12 @@ def plot_training(losses, title='Losses'):
 
 def q1_results(q1, accuracy=False):
     train_data, test_data = get_data('MNIST')
-    losses, encoder = q1(train_data, test_data)
+    losses, encoder = q1(train_data)
 
     plot_training(losses)
     if accuracy:
         acc = test_classification(test_data, encoder)
-        print(f'mean classification accuracy={np.mean(acc):.3f}±{np.std(acc, ddof=1):.3f}')
+        print(f'mean classification accuracy={np.mean(acc):.4f}')
 
 
 def q2_results(q2, accuracy=False):
