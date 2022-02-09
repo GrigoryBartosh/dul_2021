@@ -149,4 +149,4 @@ def q2_results(q2, accuracy=False):
     plot_training(losses)
     if accuracy:
         acc = test_classification(test_data, encoder)
-        print(f'mean classification accuracy={np.mean(acc):.3f}±{np.std(acc, ddof=1):.3f}')
+        print(f'mean classification accuracy={np.mean(acc):.4f}')
