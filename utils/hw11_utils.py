@@ -2,6 +2,9 @@ import torch.nn as nn
 import torch.optim as opt
 import torch.utils.data as data
 from sklearn.metrics import accuracy_score
+from torch.nn import functional as F
+import torch
+
 from torchvision import transforms
 from torchvision.datasets import MNIST, CIFAR10
 
