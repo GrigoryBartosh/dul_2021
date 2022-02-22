@@ -12,8 +12,8 @@ from src.net import Net
 class VAT(nn.Module):
     def __init__(self):
         super().__init__()
-        # self.net = Net(512, 1024)
-        self.net = Net(8192, 8192)
+        self.net = Net(512, 1024)
+        # self.net = Net(8192, 8192)
 
     @property
     def device(self):
