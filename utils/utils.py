@@ -1,13 +1,17 @@
 import os
+import pickle
 from os.path import join, dirname, exists
+
 import matplotlib.pyplot as plt
 import numpy as np
-import pickle
 import torch
-import torch.nn.functional as F
+from torchvision import transforms
+from torchvision.datasets import MNIST, CIFAR10
 from torchvision.utils import make_grid
 
+
 # borrow from https://github.com/rll/deepul
+
 
 def savefig(fname, show_figure=True):
     if not exists(dirname(fname)):
@@ -106,3 +110,51 @@ def get_data_dir(hw_number):
 def quantize(images, n_bits):
     images = np.floor(images / 256. * 2 ** n_bits)
     return images.astype('uint8')
+
+
+def load_data(dataset='MNIST'):
+    transform = transforms.Compose([transforms.ToTensor(),
+                                    transforms.Normalize((0.5,), (0.5,))
+                                    ])
+
+    if dataset == 'MNIST':
+        _ = MNIST(root='./', train=True, transform=transform, download=True)
+        _ = MNIST(root='./', train=False, transform=transform, download=True)
+    elif dataset == 'CIFAR10':
+        _ = CIFAR10(root='./', train=True, transform=transform, download=True)
+        _ = CIFAR10(root='./', train=False, transform=transform, download=True)
+
+
+def get_data(dataset='MNIST', binary=False):
+    if binary:
+        transform = transforms.Compose([transforms.ToTensor(),
+                                        transforms.Normalize((0.5,), (0.5,)),
+                                        transforms.round()
+                                        ])
+    else:
+        transform = transforms.Compose([transforms.ToTensor(),
+                                        transforms.Normalize((0.5,), (0.5,))
+                                    ])
+
+    if dataset == 'MNIST':
+        train_set = MNIST(root='./', train=True, transform=transform, download=True)
+        test_set = MNIST(root='./', train=False, transform=transform, download=True)
+    elif dataset == 'CIFAR10':
+        train_set = CIFAR10(root='./', train=True, transform=transform, download=True)
+        test_set = CIFAR10(root='./', train=False, transform=transform, download=True)
+    else:
+        raise ValueError()
+
+    return train_set, test_set
+
+
+def plot_training(losses, title='Losses'):
+    plt.figure()
+    x = np.arange(len(losses))
+
+    plt.plot(x, losses, label=title.lower())
+
+    plt.legend()
+    plt.title(title)
+    plt.xlabel('Iteration')
+    plt.ylabel(title)
