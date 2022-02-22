@@ -21,7 +21,7 @@ class SSDataset:
 
 def q12_results(q):
     train_data, test_data = get_data('CIFAR10')
-    train_data, test_data = SSDataset(train_data), SSDataset(test_data)
+    train_data, test_data = SSDataset(train_data), SSDataset(test_data, False)
 
     losses, accs = q(train_data, test_data)
 
@@ -31,7 +31,7 @@ def q12_results(q):
 
 def b_resul(b):
     train_data, test_data = get_data('MNIST', binary=True)
-    train_data, test_data = SSDataset(train_data), SSDataset(test_data)
+    train_data, test_data = SSDataset(train_data), SSDataset(test_data, False)
     losses, accs = b(train_data, test_data)
 
     plot_training(losses, 'Loss')
