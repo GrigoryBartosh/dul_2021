@@ -25,7 +25,7 @@ def q1_save_results(fn, part):
     interpolations = interpolations.astype('float')
 
     print(f'Final Test Loss: {test_losses[-1]:.4f}')
-    save_training_plot(train_losses, test_losses, f'Q3 Dataset Train Plot',
-                       f'results/q3_{part}_train_plot.png')
-    show_samples(samples * 255.0, f'results/q3_{part}_samples.png')
-    show_samples(interpolations * 255.0, f'results/q3_{part}_interpolations.png', nrow=6, title='Interpolations')
+    save_training_plot(train_losses, test_losses, f'Q1 Dataset Train Plot',
+                       f'results/q1_{part}_train_plot.png')
+    show_samples(samples * 255.0, f'results/q1_{part}_samples.png')
+    show_samples(interpolations * 255.0, f'results/q1_{part}_interpolations.png', nrow=6, title='Interpolations')
