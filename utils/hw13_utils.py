@@ -1,8 +1,8 @@
 from .utils import *
 
 
-def visualize_q3_data():
-    data_dir = get_data_dir(2)
+def visualize_q1_data():
+    data_dir = get_data_dir(13)
     train_data, test_data = load_pickled_data(join(data_dir, 'celeb.pkl'))
     name = 'CelebA'
 
@@ -10,14 +10,14 @@ def visualize_q3_data():
     images = train_data[idxs].astype(np.float32) / 3.0 * 255.0
     show_samples(images, title=f'{name} Samples')
 
-def get_q3_data():
-    data_dir = get_data_dir(2)
+def get_q1_data():
+    data_dir = get_data_dir(13)
     train_data, test_data = load_pickled_data(join(data_dir, 'celeb.pkl'))
     return train_data, test_data
 
 
-def q3_save_results(fn, part):
-    data_dir = get_data_dir(2)
+def q1_save_results(fn, part):
+    data_dir = get_data_dir(13)
     train_data, test_data = load_pickled_data(join(data_dir, 'celeb.pkl'))
 
     train_losses, test_losses, samples, interpolations = fn(train_data, test_data)
