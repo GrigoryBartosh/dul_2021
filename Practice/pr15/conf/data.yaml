@@ -1,0 +1,4 @@
+dataset:
+  _target_: data.SSDataset
+  name: MNIST
+  c: 4000

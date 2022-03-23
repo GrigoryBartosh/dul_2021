@@ -1,0 +1,12 @@
+double_dataset:
+  _target_: data.DoubleDataset
+  dset1:
+    _target_: data.SSDataset
+    name: MNIST
+    c: 4000
+    train: False
+  dset2:
+    _target_: data.SSDataset
+    name: MNIST
+    c: 4000
+    train: True

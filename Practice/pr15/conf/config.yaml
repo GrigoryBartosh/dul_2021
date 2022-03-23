@@ -1,0 +1,3 @@
+node:                         # Config is hierarchical
+  x: 10                       # Simple value
+  y: "x is ${node.x}"         # String interpolation
